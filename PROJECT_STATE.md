@@ -10,12 +10,13 @@ Phase 1 — repo scaffolding + CI/CD gates (branch protection, SAST checks, AI r
 
 2026-08-28 (later) — Created the `protect-main` branch ruleset (active): PR required with 0 approvals (solo repo), linear history, no force-push/deletion, required status checks (`ci`, `gitleaks`, `semgrep`, `analyze (javascript-typescript)`) with strict up-to-date policy. Enabled repo-wide auto-merge and delete-branch-on-merge. While clearing the resulting Dependabot PR backlog, found and fixed two real CI issues (see "Known CI gotchas" below): unpinned Actions tags failing Semgrep's supply-chain rule, and a `codeql-action` init/analyze version mismatch. Ended with 0 open PRs and a clean `main`.
 
+## Last session (cont.)
+
+2026-08-28 (later still) — Closed out remaining Phase 1 secrets/deploy setup: created a scoped Cloudflare API token (Account: Workers Scripts Edit, Account Settings Read; User Details Read — trimmed down from the default "Edit Cloudflare Workers" template), added `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repo secrets, confirmed Deploy goes green. Ran `claude setup-token` and added `CLAUDE_CODE_OAUTH_TOKEN`. Confirmed `radesh-govind.com` is an active Cloudflare zone, uncommented the custom domain route in `apps/web/wrangler.jsonc` (PR #12, squash-merged). `https://masop.radesh-govind.com` is live (200 OK) with all 5 required checks green (CI, CodeQL, Gitleaks, Semgrep, Deploy).
+
 ## Next steps
 
-- Run `claude setup-token` locally → add as `CLAUDE_CODE_OAUTH_TOKEN` repo secret
-- Create Cloudflare API token + get account ID → add as `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` repo secrets
-- Confirm `radesh-govind.com` is an active Cloudflare zone, then uncomment the custom domain route in `apps/web/wrangler.jsonc`
-- Once CI/deploy prove green end-to-end: start the ports & adapters frontend work (fake adapters first)
+- Start the ports & adapters frontend work (fake adapters first) — CI/deploy have proven green end-to-end
 
 ## Known CI gotchas (read before touching workflows or merging Dependabot PRs)
 
@@ -38,5 +39,3 @@ Phase 1 — repo scaffolding + CI/CD gates (branch protection, SAST checks, AI r
 ## Open questions
 
 - Phase order after scaffolding: frontend-first via ports & adapters, then swap to real Cloudflare Workers backend, then orchestration (Durable Objects), then real scanner agents + Graphiti — exact milestone boundaries TBD as we go
-- Cloudflare API token, account ID, and confirmation that `radesh-govind.com` is an active Cloudflare zone — needed before the deploy workflow can run
-- `claude setup-token` needs to be run locally by the user to generate the OAuth token for the `CLAUDE_CODE_OAUTH_TOKEN` secret
