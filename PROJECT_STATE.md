@@ -6,12 +6,10 @@ Phase 1 — repo scaffolding + CI/CD gates (branch protection, SAST checks, AI r
 
 ## Last session
 
-2026-08-28 — Scaffolded the npm workspace monorepo (`apps/web` via Vite React+TS, `packages/shared` empty), added Prettier + Husky/lint-staged, wired Vitest into `apps/web`, and added all Phase 1 GitHub Actions workflows (`ci.yml`, `codeql.yml`, `semgrep.yml`, `gitleaks.yml`, `deploy.yml`, `claude-review.yml`) plus `dependabot.yml`. Verified locally: lint, typecheck, test, and build all pass; confirmed the dev server actually renders in a browser. Added README run instructions, fixed the README's stale "masio" naming to MASOP, and created four project-specific subagents in `.claude/agents/` (`data-modeler`, `security-reviewer`, `ports-adapters-guardian`, `quality-reviewer`), wired into CLAUDE.md's new "Specialist agents" section. Nothing committed to git yet — pending user go-ahead.
+2026-08-28 — Scaffolded the npm workspace monorepo (`apps/web` via Vite React+TS, `packages/shared` empty), added Prettier + Husky/lint-staged, wired Vitest into `apps/web`, and added all Phase 1 GitHub Actions workflows (`ci.yml`, `codeql.yml`, `semgrep.yml`, `gitleaks.yml`, `deploy.yml`, `claude-review.yml`) plus `dependabot.yml`. Verified locally: lint, typecheck, test, and build all pass; confirmed the dev server actually renders in a browser. Added README run instructions, fixed the README's stale "masio" naming to MASOP, and created four project-specific subagents in `.claude/agents/` (`data-modeler`, `security-reviewer`, `ports-adapters-guardian`, `quality-reviewer`), wired into CLAUDE.md's new "Specialist agents" section. Committed as three split commits (workspace scaffolding, CI/CD workflows, docs/subagents) directly to `main` and pushed to `origin/main` (`radeshgovind-2005/masop`).
 
 ## Next steps
 
-- Commit the scaffolded repo (waiting on user confirmation)
-- Push to a GitHub remote (not yet created/confirmed)
 - Run `claude setup-token` locally → add as `CLAUDE_CODE_OAUTH_TOKEN` repo secret
 - Create Cloudflare API token + get account ID → add as `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` repo secrets
 - Confirm `radesh-govind.com` is an active Cloudflare zone, then uncomment the custom domain route in `apps/web/wrangler.jsonc`
@@ -33,6 +31,5 @@ Phase 1 — repo scaffolding + CI/CD gates (branch protection, SAST checks, AI r
 ## Open questions
 
 - Phase order after scaffolding: frontend-first via ports & adapters, then swap to real Cloudflare Workers backend, then orchestration (Durable Objects), then real scanner agents + Graphiti — exact milestone boundaries TBD as we go
-- GitHub remote not yet created/confirmed for this repo — needed before CI/deploy workflows can actually run
 - Cloudflare API token, account ID, and confirmation that `radesh-govind.com` is an active Cloudflare zone — needed before the deploy workflow can run
 - `claude setup-token` needs to be run locally by the user to generate the OAuth token for the `CLAUDE_CODE_OAUTH_TOKEN` secret
