@@ -1,0 +1,55 @@
+name: Claude Code Review
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to review'
+        required: true
+        type: number
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  check-permission:
+    runs-on: ubuntu-latest
+    outputs:
+      allowed: ${{ steps.check.outputs.allowed }}
+    steps:
+      - id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              username: context.actor,
+            });
+            const allowed = ['admin', 'maintain'].includes(data.permission);
+            core.setOutput('allowed', String(allowed));
+            if (!allowed) {
+              core.setFailed(`${context.actor} has permission "${data.permission}", not admin/maintain — refusing to run.`);
+            }
+
+  review:
+    needs: check-permission
+    if: needs.check-permission.outputs.allowed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.inputs.pr_number }}/head
+          fetch-depth: 0
+
+      # NOTE: verify input names against the current anthropics/claude-code-action
+      # README before first run — the action's interface has changed across versions.
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Review the changes in PR #${{ github.event.inputs.pr_number }} for security issues,
+            correctness, and code quality. Post findings as a PR review comment.
