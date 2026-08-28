@@ -1,27 +1,33 @@
-import { Link } from 'react-router-dom';
+import { Hero10 } from '@/components/ui/hero-10';
 
 export function LandingPage() {
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center gap-6 bg-white dark:bg-neutral-900 px-4 text-center">
-      <h1 className="text-4xl font-medium text-neutral-800 dark:text-neutral-100">MASOP</h1>
-      <p className="max-w-md text-neutral-500 dark:text-neutral-400">
-        Multi-agent security scans — SAST, secrets, and dependency findings, orchestrated and
-        surfaced in one place.
-      </p>
-      <div className="flex gap-3">
-        <Link
-          to="/sign-in"
-          className="rounded-md border border-neutral-200 dark:border-neutral-700 px-4 py-2 text-sm font-medium text-neutral-800 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-        >
-          Sign in
-        </Link>
-        <Link
-          to="/sign-up"
-          className="rounded-md bg-neutral-900 dark:bg-neutral-100 px-4 py-2 text-sm font-medium text-white dark:text-neutral-900 hover:opacity-90"
-        >
-          Get started
-        </Link>
-      </div>
-    </div>
+    <Hero10
+      title="Security scans,"
+      titleLine2Prefix="orchestrated by"
+      titleHighlight="AI agents"
+      description="Multi-agent security scans — SAST, secrets, and dependency findings, orchestrated and surfaced in one place."
+      images={[
+        'https://images.unsplash.com/photo-1685013640715-8701bbaa2207?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1746467364902-ab40952e33fe?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'https://images.unsplash.com/photo-1578301978018-3005759f48f7?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      ]}
+      imageAlts={['Security dashboard', 'Scan findings', 'Agent orchestration']}
+      animation="subtle"
+      primaryCTA={{
+        ctaEnabled: true,
+        text: 'Get started',
+        link: '/sign-up',
+        variant: 'default',
+        size: 'default',
+      }}
+      secondaryCTA={{
+        ctaEnabled: true,
+        text: 'Sign in',
+        link: '/sign-in',
+        variant: 'outline',
+        size: 'default',
+      }}
+    />
   );
 }
