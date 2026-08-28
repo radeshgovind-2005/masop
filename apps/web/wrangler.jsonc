@@ -6,6 +6,5 @@
     "directory": "./dist",
     "not_found_handling": "single-page-application",
   },
-  // Uncomment once the zone/domain is confirmed (see PROJECT_STATE.md open questions):
-  // "routes": [{ "pattern": "masop.radesh-govind.com", "custom_domain": true }],
+  "routes": [{ "pattern": "masop.radesh-govind.com", "custom_domain": true }],
 }
