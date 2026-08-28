@@ -13,6 +13,7 @@ Multi-Agent Security Orchestrator Platform — a platform where multiple AI agen
 - Micro-steps: one atomic change at a time, verify it works, then move on.
 - Monorepo via npm workspaces: `apps/web`, `apps/worker` (later), `packages/shared`.
 - Git: trunk-based, short-lived feature branches, PRs required, squash-merge, Conventional Commits.
+- **Deploys always go through git**: push branch → PR → merge to `main` → `deploy.yml` (GitHub Actions) runs the actual deploy. Never run `wrangler deploy` / `npm run deploy` directly from the terminal.
 - Testing: TDD where practical for ports/adapters, orchestration logic, and API routes. Lighter touch on pure UI.
 - **Frontend-first, ports & adapters**: build the entire UI against port interfaces (e.g. `AuthPort`, `ScanPort`, `FindingsPort`) backed by fake/in-memory adapters. Iterate screen-by-screen with the user before any real backend exists. Do not wire a real adapter until the user explicitly starts the "swap adapters" phase.
 
