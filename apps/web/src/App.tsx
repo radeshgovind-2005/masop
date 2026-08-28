@@ -4,6 +4,7 @@ import { DashboardPage } from '@/pages/dashboard-page';
 import { LandingPage } from '@/pages/landing-page';
 import { SignInPage } from '@/pages/sign-in-page';
 import { SignUpPage } from '@/pages/sign-up-page';
+import { RequireAuth } from '@/routes/require-auth';
 
 function App() {
   return (
@@ -14,9 +15,11 @@ function App() {
       <Route
         path="/dashboard"
         element={
-          <AppSidebar>
-            <DashboardPage />
-          </AppSidebar>
+          <RequireAuth>
+            <AppSidebar>
+              <DashboardPage />
+            </AppSidebar>
+          </RequireAuth>
         }
       />
       <Route path="*" element={<Navigate to="/" replace />} />
