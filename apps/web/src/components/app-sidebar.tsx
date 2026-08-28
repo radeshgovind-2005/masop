@@ -1,13 +1,14 @@
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar';
-import { LayoutDashboard, ScanSearch, ShieldAlert, Settings, UserCircle } from 'lucide-react';
+import { LayoutDashboard, ScanSearch, ShieldAlert, Settings } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { AccountControl } from '@/components/account-control';
 
 const links = [
   {
     label: 'Dashboard',
-    href: '#',
+    href: '/dashboard',
     icon: (
       <LayoutDashboard className="h-5 w-5 flex-shrink-0 text-neutral-700 dark:text-neutral-200" />
     ),
@@ -50,15 +51,7 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div>
-            <SidebarLink
-              link={{
-                label: 'Account',
-                href: '#',
-                icon: (
-                  <UserCircle className="h-7 w-7 flex-shrink-0 text-neutral-700 dark:text-neutral-200" />
-                ),
-              }}
-            />
+            <AccountControl />
           </div>
         </SidebarBody>
       </Sidebar>

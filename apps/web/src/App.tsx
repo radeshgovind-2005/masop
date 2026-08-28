@@ -1,15 +1,29 @@
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { AppSidebar } from '@/components/app-sidebar';
+import { DashboardPage } from '@/pages/dashboard-page';
+import { LandingPage } from '@/pages/landing-page';
+import { SignInPage } from '@/pages/sign-in-page';
+import { SignUpPage } from '@/pages/sign-up-page';
+import { RequireAuth } from '@/routes/require-auth';
 
 function App() {
   return (
-    <AppSidebar>
-      <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full h-full">
-        <h1 className="text-2xl font-medium text-neutral-800 dark:text-neutral-100">Dashboard</h1>
-        <p className="text-neutral-500 dark:text-neutral-400">
-          Scan results and findings will show up here.
-        </p>
-      </div>
-    </AppSidebar>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/sign-in/*" element={<SignInPage />} />
+      <Route path="/sign-up/*" element={<SignUpPage />} />
+      <Route
+        path="/dashboard"
+        element={
+          <RequireAuth>
+            <AppSidebar>
+              <DashboardPage />
+            </AppSidebar>
+          </RequireAuth>
+        }
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
