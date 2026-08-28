@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ClerkProvider } from '@clerk/clerk-react';
-import { FakeAuthProvider } from '@/adapters/auth/fake-auth-adapter';
+import { ClerkAuthAdapter } from '@/adapters/auth/clerk-auth-adapter';
 import './index.css';
 import App from './App.tsx';
 
@@ -15,9 +15,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ClerkProvider publishableKey={clerkPublishableKey} afterSignOutUrl="/">
       <BrowserRouter>
-        <FakeAuthProvider>
+        <ClerkAuthAdapter>
           <App />
-        </FakeAuthProvider>
+        </ClerkAuthAdapter>
       </BrowserRouter>
     </ClerkProvider>
   </StrictMode>,
