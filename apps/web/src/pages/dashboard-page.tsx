@@ -1,28 +1,23 @@
 import { useState } from 'react';
-import { LayoutDashboard, ScanSearch, Settings, ShieldAlert } from 'lucide-react';
+import { LayoutDashboard, Settings, Store } from 'lucide-react';
 import { AccountControl } from '@/components/account-control';
 import { NotchNav } from '@/components/ui/adaptive-notch-navigation-bar';
 import type { NotchItemData } from '@/components/ui/adaptive-notch-navigation-bar';
 
 const NAV_ITEMS: NotchItemData[] = [
+  { id: 'marketplace', label: 'Marketplace', icon: Store },
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { id: 'scans', label: 'Scans', icon: ScanSearch },
-  { id: 'findings', label: 'Findings', icon: ShieldAlert },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
 const PANEL_COPY: Record<string, { title: string; description: string }> = {
+  marketplace: {
+    title: 'Marketplace',
+    description: 'Scanner agents available to install will show up here.',
+  },
   dashboard: {
     title: 'Dashboard',
     description: 'Scan results and findings will show up here.',
-  },
-  scans: {
-    title: 'Scans',
-    description: 'Agent-run scans will be listed here once orchestration is wired up.',
-  },
-  findings: {
-    title: 'Findings',
-    description: 'Security findings surfaced by agents will show up here.',
   },
   settings: {
     title: 'Settings',
@@ -31,11 +26,8 @@ const PANEL_COPY: Record<string, { title: string; description: string }> = {
 };
 
 const LogoSlot = (
-  <div className="flex items-center gap-1.5 sm:gap-2 h-8.5">
-    <div className="flex size-7 items-center justify-center rounded-lg bg-zinc-800 dark:bg-zinc-300">
-      <ShieldAlert className="size-4 text-zinc-50 dark:text-zinc-950" />
-    </div>
-    <span className="hidden sm:inline text-xs sm:text-sm font-bold tracking-tight">MASOP</span>
+  <div className="flex items-center h-8.5">
+    <span className="text-xs sm:text-sm font-bold tracking-tight">MASOP</span>
   </div>
 );
 
