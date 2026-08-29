@@ -1,28 +1,24 @@
-import { UserCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useSidebar } from '@/components/ui/sidebar';
+import { LogOut, UserCircle } from 'lucide-react';
 import { useAuth } from '@/ports/auth-context';
 
 export function AccountControl() {
-  const { open, animate } = useSidebar();
   const auth = useAuth();
 
   return (
-    <button
-      type="button"
-      onClick={() => void auth.signOut()}
-      className="flex items-center justify-start gap-2 group/sidebar py-2 w-full text-left"
-    >
-      <UserCircle className="h-7 w-7 flex-shrink-0 text-neutral-700 dark:text-neutral-200" />
-      <motion.span
-        animate={{
-          display: animate ? (open ? 'inline-block' : 'none') : 'inline-block',
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+    <div className="flex items-center gap-1.5 sm:gap-2 h-8.5">
+      <div className="hidden sm:flex size-7 items-center justify-center rounded-full bg-zinc-800 text-zinc-300 dark:bg-zinc-300 dark:text-zinc-800">
+        <UserCircle className="size-4" />
+      </div>
+
+      <button
+        type="button"
+        onClick={() => void auth.signOut()}
+        aria-label="Sign out"
+        className="cursor-pointer items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-zinc-200 flex dark:text-zinc-600 dark:hover:text-zinc-900 outline-none"
       >
-        {auth.user?.displayName ?? 'Account'}
-      </motion.span>
-    </button>
+        <span className="hidden sm:inline">{auth.user?.displayName ?? 'Sign out'}</span>
+        <LogOut className="size-4 sm:size-3.5" />
+      </button>
+    </div>
   );
 }
