@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LayoutDashboard, Network, Settings } from 'lucide-react';
+import { Bot, LayoutDashboard, Network, Settings } from 'lucide-react';
 import { AccountControl } from '@/components/account-control';
 import { NotchNav } from '@/components/ui/adaptive-notch-navigation-bar';
 import type { NotchItemData } from '@/components/ui/adaptive-notch-navigation-bar';
@@ -7,6 +7,7 @@ import type { NotchItemData } from '@/components/ui/adaptive-notch-navigation-ba
 const NAV_ITEMS: NotchItemData[] = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'ops-hubs', label: 'Hubs', icon: Network },
+  { id: 'agents', label: 'Agents', icon: Bot },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
@@ -18,6 +19,10 @@ const PANEL_COPY: Record<string, { title: string; description: string }> = {
   'ops-hubs': {
     title: 'Hubs',
     description: 'Connected orchestration hubs will show up here.',
+  },
+  agents: {
+    title: 'Agents',
+    description: 'Configured security agents will show up here.',
   },
   settings: {
     title: 'Settings',
