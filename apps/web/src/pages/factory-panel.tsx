@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Bot, Database, FlaskConical, Workflow, Wrench } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { WorkflowCanvas } from '@/components/workflow/workflow-canvas';
 
 interface FactorySection {
   id: string;
@@ -50,7 +51,7 @@ export function FactoryPanel() {
   const activeSection = SECTIONS.find((section) => section.id === activeSectionId) ?? SECTIONS[0];
 
   return (
-    <div className="flex h-full w-full max-w-4xl gap-4">
+    <div className="flex h-full w-full gap-4">
       <nav className="flex w-48 shrink-0 flex-col gap-1 py-1" aria-label="Factory sections">
         {SECTIONS.map((section) => {
           const Icon = section.icon;
@@ -77,10 +78,16 @@ export function FactoryPanel() {
         })}
       </nav>
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-card p-6 text-center shadow-xs">
-        <h1 className="text-2xl font-medium text-foreground">{activeSection.label}</h1>
-        <p className="text-muted-foreground">{activeSection.description}</p>
-      </div>
+      {activeSection.id === 'workflows' ? (
+        <div className="flex-1">
+          <WorkflowCanvas />
+        </div>
+      ) : (
+        <div className="flex flex-1 flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-card p-6 text-center shadow-xs">
+          <h1 className="text-2xl font-medium text-foreground">{activeSection.label}</h1>
+          <p className="text-muted-foreground">{activeSection.description}</p>
+        </div>
+      )}
     </div>
   );
 }
