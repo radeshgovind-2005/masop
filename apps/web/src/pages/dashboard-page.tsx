@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { OrganizationSwitcher } from '@clerk/clerk-react';
 import { Bot, LayoutDashboard, Network, Settings } from 'lucide-react';
 import { AccountControl } from '@/components/account-control';
 import { NotchNav } from '@/components/ui/adaptive-notch-navigation-bar';
@@ -15,10 +16,6 @@ const PANEL_COPY: Record<string, { title: string; description: string }> = {
   dashboard: {
     title: 'Dashboard',
     description: 'Scan results and findings will show up here.',
-  },
-  'ops-hubs': {
-    title: 'Hubs',
-    description: 'Connected orchestration hubs will show up here.',
   },
   agents: {
     title: 'Agents',
@@ -38,7 +35,6 @@ const LogoSlot = (
 
 export function DashboardPage() {
   const [activeId, setActiveId] = useState('dashboard');
-  const panel = PANEL_COPY[activeId] ?? PANEL_COPY.dashboard;
 
   return (
     <NotchNav
@@ -48,10 +44,34 @@ export function DashboardPage() {
       logo={LogoSlot}
       rightContent={<AccountControl />}
     >
-      <div className="flex w-full max-w-md flex-col items-center gap-2 rounded-2xl border border-border bg-card p-6 text-center shadow-xs">
-        <h1 className="text-2xl font-medium text-foreground">{panel.title}</h1>
-        <p className="text-muted-foreground">{panel.description}</p>
-      </div>
+      {activeId === 'ops-hubs' ? <HubsPanel /> : <GenericPanel activeId={activeId} />}
     </NotchNav>
+  );
+}
+
+function HubsPanel() {
+  return (
+    <div className="flex w-full max-w-md flex-col items-center gap-4 rounded-2xl border border-border bg-card p-6 text-center shadow-xs">
+      <div>
+        <h1 className="text-2xl font-medium text-foreground">Hubs</h1>
+        <p className="text-muted-foreground">Select your team, project, or client environment.</p>
+      </div>
+      <OrganizationSwitcher
+        hidePersonal
+        afterSelectOrganizationUrl="/"
+        afterCreateOrganizationUrl="/"
+      />
+    </div>
+  );
+}
+
+function GenericPanel({ activeId }: { activeId: string }) {
+  const panel = PANEL_COPY[activeId] ?? PANEL_COPY.dashboard;
+
+  return (
+    <div className="flex w-full max-w-md flex-col items-center gap-2 rounded-2xl border border-border bg-card p-6 text-center shadow-xs">
+      <h1 className="text-2xl font-medium text-foreground">{panel.title}</h1>
+      <p className="text-muted-foreground">{panel.description}</p>
+    </div>
   );
 }
