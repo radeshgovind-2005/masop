@@ -1,23 +1,23 @@
 import { useState } from 'react';
-import { LayoutDashboard, Settings, Store } from 'lucide-react';
+import { LayoutDashboard, Network, Settings } from 'lucide-react';
 import { AccountControl } from '@/components/account-control';
 import { NotchNav } from '@/components/ui/adaptive-notch-navigation-bar';
 import type { NotchItemData } from '@/components/ui/adaptive-notch-navigation-bar';
 
 const NAV_ITEMS: NotchItemData[] = [
-  { id: 'marketplace', label: 'Marketplace', icon: Store },
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'ops-hubs', label: 'Hubs', icon: Network },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
 const PANEL_COPY: Record<string, { title: string; description: string }> = {
-  marketplace: {
-    title: 'Marketplace',
-    description: 'Scanner agents available to install will show up here.',
-  },
   dashboard: {
     title: 'Dashboard',
     description: 'Scan results and findings will show up here.',
+  },
+  'ops-hubs': {
+    title: 'Hubs',
+    description: 'Connected orchestration hubs will show up here.',
   },
   settings: {
     title: 'Settings',
