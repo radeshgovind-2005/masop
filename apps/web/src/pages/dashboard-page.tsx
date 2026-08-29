@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { OrganizationSwitcher } from '@clerk/clerk-react';
-import { Bot, LayoutDashboard, Network, Settings } from 'lucide-react';
+import { Bot, Factory, LayoutDashboard, Network, Settings } from 'lucide-react';
 import { AccountControl } from '@/components/account-control';
+import { FactoryPanel } from '@/pages/factory-panel';
 import { NotchNav } from '@/components/ui/adaptive-notch-navigation-bar';
 import type { NotchItemData } from '@/components/ui/adaptive-notch-navigation-bar';
 
@@ -9,6 +10,7 @@ const NAV_ITEMS: NotchItemData[] = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'ops-hubs', label: 'Hubs', icon: Network },
   { id: 'agents', label: 'Agents', icon: Bot },
+  { id: 'factory', label: 'Factory', icon: Factory },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
@@ -44,7 +46,13 @@ export function DashboardPage() {
       logo={LogoSlot}
       rightContent={<AccountControl />}
     >
-      {activeId === 'ops-hubs' ? <HubsPanel /> : <GenericPanel activeId={activeId} />}
+      {activeId === 'ops-hubs' ? (
+        <HubsPanel />
+      ) : activeId === 'factory' ? (
+        <FactoryPanel />
+      ) : (
+        <GenericPanel activeId={activeId} />
+      )}
     </NotchNav>
   );
 }
