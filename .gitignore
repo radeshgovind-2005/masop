@@ -23,6 +23,14 @@ npm-debug.log*
 # Coverage
 coverage
 
+# Mastra
+.mastra
+apps/mastra/src/mastra/public/
+*.db
+*.db-*
+*.duckdb
+*.duckdb.wal
+
 # Editor
 .vscode/*
 !.vscode/extensions.json
